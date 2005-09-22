@@ -1,4 +1,5 @@
 Summary:	An interface for SELinux management
+Summary(pl):	Interfejs do zarz±dzania SELinuksem
 Name:		libsemanage
 Version:	1.2
 Release:	1
@@ -12,13 +13,20 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 An interface for SELinux management.
 
+%description -l pl
+Interfejs do zarz±dzania SELinuksem.
+
 %package devel
-Summary:	Header files for %{name}
+Summary:	Header files for libsemanage library
+Summary(pl):	Pliki nag³ówkowe biblioteki libsemanage
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
-This package contains the header files for %{name}.
+This package contains the header files for libsemanage library.
+
+%description devel -l pl
+Ten pakiet zawiera pliki nag³ówkowe biblioteki libsemanage.
 
 %package static
 Summary:	Static version of libsemanage library
