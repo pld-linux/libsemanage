@@ -7,9 +7,11 @@ License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://www.nsa.gov/selinux/archives/%{name}-%{version}.tgz
 # Source0-md5:	83c6ab2b45cd35d148615fda3b04ba03
+Patch0:		%{name}-printf_format.patch
 URL:		http://www.nsa.gov/selinux/
 BuildRequires:	bison
 BuildRequires:	flex
+BuildRequires:	libsepol-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -44,6 +46,7 @@ Statyczna wersja biblioteki libsemanage.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__make} \
