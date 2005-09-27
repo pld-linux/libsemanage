@@ -2,7 +2,7 @@ Summary:	An interface for SELinux management
 Summary(pl):	Interfejs do zarz±dzania SELinuksem
 Name:		libsemanage
 Version:	1.2
-Release:	1
+Release:	2
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://www.nsa.gov/selinux/archives/%{name}-%{version}.tgz
@@ -57,7 +57,9 @@ Statyczna wersja biblioteki libsemanage.
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
+	LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
 	DESTDIR=$RPM_BUILD_ROOT
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
