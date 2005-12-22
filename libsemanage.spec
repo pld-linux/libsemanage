@@ -10,6 +10,7 @@ Source0:	http://www.nsa.gov/selinux/archives/%{name}-%{version}.tgz
 URL:		http://www.nsa.gov/selinux/
 BuildRequires:	bison
 BuildRequires:	flex
+BuildRequires:	libselinux-devel >= 1.28
 BuildRequires:	libsepol-devel
 BuildRequires:	rpm-pythonprov
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -63,7 +64,7 @@ Wi±zania Pythona do biblioteki semanage.
 %build
 %{__make} \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags} -Wall"
+	CFLAGS="%{rpmcflags} -Wall -fno-strict-aliasing"
 
 %install
 rm -rf $RPM_BUILD_ROOT
