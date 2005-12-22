@@ -11,7 +11,7 @@ URL:		http://www.nsa.gov/selinux/
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	libselinux-devel >= 1.28
-BuildRequires:	libsepol-devel
+BuildRequires:	libsepol-devel >= 1.10
 BuildRequires:	rpm-pythonprov
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
