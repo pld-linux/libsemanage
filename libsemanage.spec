@@ -13,6 +13,8 @@ BuildRequires:	flex
 BuildRequires:	libselinux-devel >= 1.28
 BuildRequires:	libsepol-devel >= 1.10
 BuildRequires:	rpm-pythonprov
+Requires:	libselinux >= 1.28
+Requires:	libsepol >= 1.10
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
