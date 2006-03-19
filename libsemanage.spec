@@ -1,20 +1,21 @@
 Summary:	An interface for SELinux management
 Summary(pl):	Interfejs do zarz±dzania SELinuksem
 Name:		libsemanage
-Version:	1.4
-Release:	2
+Version:	1.6
+Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://www.nsa.gov/selinux/archives/%{name}-%{version}.tgz
-# Source0-md5:	063010d314da724b33de18883b71b8ee
+# Source0-md5:	fb06d32b305322c8810dfe1924705e74
 URL:		http://www.nsa.gov/selinux/
 BuildRequires:	bison
 BuildRequires:	flex
-BuildRequires:	libselinux-devel >= 1.28
-BuildRequires:	libsepol-devel >= 1.10
+BuildRequires:	libselinux-devel >= 1.30
+BuildRequires:	libsepol-devel >= 1.12
+BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
-Requires:	libselinux >= 1.28
-Requires:	libsepol >= 1.10
+Requires:	libselinux >= 1.30
+Requires:	libsepol >= 1.12
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -64,14 +65,14 @@ Wi±zania Pythona do biblioteki semanage.
 %setup -q
 
 %build
-%{__make} \
+%{__make} all pywrap \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} -Wall -fno-strict-aliasing"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
+%{__make} install install-pywrap \
 	LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
 	SHLIBDIR=$RPM_BUILD_ROOT/%{_lib} \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -96,6 +97,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libsemanage.so
 %{_includedir}/semanage
+%{_mandir}/man3/semanage_*.3*
 
 %files static
 %defattr(644,root,root,755)
