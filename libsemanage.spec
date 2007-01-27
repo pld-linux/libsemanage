@@ -1,12 +1,12 @@
 Summary:	An interface for SELinux management
 Summary(pl):	Interfejs do zarz±dzania SELinuksem
 Name:		libsemanage
-Version:	1.8
+Version:	1.10.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://www.nsa.gov/selinux/archives/%{name}-%{version}.tgz
-# Source0-md5:	1ee4bb3589b825f1554cac49c4cdeebe
+# Source0-md5:	298d0b7ea2ddeaa4b18ba9e7f4de9949
 URL:		http://www.nsa.gov/selinux/
 BuildRequires:	bison
 BuildRequires:	flex
