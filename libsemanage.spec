@@ -1,5 +1,5 @@
 Summary:	An interface for SELinux management
-Summary(pl):	Interfejs do zarz±dzania SELinuksem
+Summary(pl.UTF-8):   Interfejs do zarzÄ…dzania SELinuksem
 Name:		libsemanage
 Version:	1.10.0
 Release:	1
@@ -21,36 +21,36 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 An interface for SELinux management.
 
-%description -l pl
-Interfejs do zarz±dzania SELinuksem.
+%description -l pl.UTF-8
+Interfejs do zarzÄ…dzania SELinuksem.
 
 %package devel
 Summary:	Header files for libsemanage library
-Summary(pl):	Pliki nag³ówkowe biblioteki libsemanage
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe biblioteki libsemanage
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
 This package contains the header files for libsemanage library.
 
-%description devel -l pl
-Ten pakiet zawiera pliki nag³ówkowe biblioteki libsemanage.
+%description devel -l pl.UTF-8
+Ten pakiet zawiera pliki nagÅ‚Ã³wkowe biblioteki libsemanage.
 
 %package static
 Summary:	Static version of libsemanage library
-Summary(pl):	Statyczna wersja biblioteki libsemanage
+Summary(pl.UTF-8):   Statyczna wersja biblioteki libsemanage
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static version of libsemanage library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna wersja biblioteki libsemanage.
 
 %package -n python-semanage
 Summary:	Python binding for semanage library
-Summary(pl):	Wi±zania Pythona do biblioteki semanage
+Summary(pl.UTF-8):   WiÄ…zania Pythona do biblioteki semanage
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
 %pyrequires_eq	python-libs
@@ -58,8 +58,8 @@ Requires:	%{name} = %{version}-%{release}
 %description -n python-semanage
 Python binding for semanage library.
 
-%description -n python-semanage -l pl
-Wi±zania Pythona do biblioteki semanage.
+%description -n python-semanage -l pl.UTF-8
+WiÄ…zania Pythona do biblioteki semanage.
 
 %prep
 %setup -q
