@@ -1,21 +1,22 @@
 Summary:	An interface for SELinux management
 Summary(pl.UTF-8):	Interfejs do zarządzania SELinuksem
 Name:		libsemanage
-Version:	2.0.1
+Version:	2.0.9
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://www.nsa.gov/selinux/archives/%{name}-%{version}.tgz
-# Source0-md5:	353c11e05ec9edfc3b9f3d902d9f1fee
+# Source0-md5:	404aed01763578cd6de7a618fe6b2f87
 URL:		http://www.nsa.gov/selinux/
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	libselinux-devel >= 2.0.0
-BuildRequires:	libsepol-devel >= 2.0.0
+BuildRequires:	libsepol-devel >= 2.0.11
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
+BuildRequires:	ustr-devel
 Requires:	libselinux >= 2.0.0
-Requires:	libsepol >= 2.0.0
+Requires:	libsepol >= 2.0.11
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
