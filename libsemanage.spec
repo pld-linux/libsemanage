@@ -66,7 +66,7 @@ Wiązania Pythona do biblioteki semanage.
 %setup -q
 
 %build
-%{__make} all pywrap \
+%{__make} -j1 all pywrap \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} -Wall -fno-strict-aliasing"
 
