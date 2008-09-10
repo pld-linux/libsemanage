@@ -1,18 +1,19 @@
 Summary:	An interface for SELinux management
 Summary(pl.UTF-8):	Interfejs do zarządzania SELinuksem
 Name:		libsemanage
-Version:	2.0.24
+Version:	2.0.25
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://www.nsa.gov/selinux/archives/%{name}-%{version}.tgz
-# Source0-md5:	96429b664f52824cb4a952e51c673fd3
+# Source0-md5:	523229b2bba1f8495d964b144534535e
 URL:		http://www.nsa.gov/selinux/
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	libselinux-devel >= 2.0.0
 BuildRequires:	libsepol-devel >= 2.0.25
 BuildRequires:	python-devel
+BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	rpm-pythonprov
 BuildRequires:	ustr-devel
 Requires:	libselinux >= 2.0.0
@@ -79,8 +80,12 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 # make symlink across / absolute
-ln -sf /%{_lib}/$(cd $RPM_BUILD_ROOT/%{_lib} ; echo libsemanage.so.*) \
+ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libsemanage.so.*) \
 	$RPM_BUILD_ROOT%{_libdir}/libsemanage.so
+
+%py_comp $RPM_BUILD_ROOT%{py_sitedir}
+%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
+%py_postclean
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -108,4 +113,4 @@ rm -rf $RPM_BUILD_ROOT
 %files -n python-semanage
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_sitedir}/_semanage.so
-%{py_sitedir}/semanage.py
+%{py_sitedir}/semanage.py[co]
