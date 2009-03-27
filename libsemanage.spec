@@ -1,13 +1,13 @@
 Summary:	An interface for SELinux management
 Summary(pl.UTF-8):	Interfejs do zarządzania SELinuksem
 Name:		libsemanage
-Version:	2.0.25
-Release:	3
+Version:	2.0.27
+Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	http://www.nsa.gov/selinux/archives/%{name}-%{version}.tgz
-# Source0-md5:	523229b2bba1f8495d964b144534535e
-URL:		http://www.nsa.gov/selinux/
+Source0:	http://userspace.selinuxproject.org/releases/20080909/devel/%{name}-%{version}.tar.gz
+# Source0-md5:	8d06aac880eb2c3121b66843b3c8cb38
+URL:		http://userspace.selinuxproject.org/trac/wiki
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	libselinux-devel >= 2.0.0
