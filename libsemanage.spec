@@ -10,6 +10,7 @@ Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	98c5221751f61e4fe2c8604d2c6b006d
 URL:		http://userspace.selinuxproject.org/trac/wiki
 BuildRequires:	bison
+BuildRequires:	bzip2-devel
 BuildRequires:	flex
 BuildRequires:	libselinux-devel >= 2.0.0
 BuildRequires:	libsepol-devel >= 2.0.37
