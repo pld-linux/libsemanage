@@ -1,13 +1,13 @@
 Summary:	An interface for SELinux management
 Summary(pl.UTF-8):	Interfejs do zarządzania SELinuksem
 Name:		libsemanage
-Version:	2.0.39
+Version:	2.0.43
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 #git clone http://oss.tresys.com/git/selinux.git
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	64ebf86d4f257bda42f21edfb2ed64f3
+# Source0-md5:	37e9b72e33ff42ebbf935c8bd761be8a
 URL:		http://userspace.selinuxproject.org/trac/wiki
 BuildRequires:	bison
 BuildRequires:	bzip2-devel
@@ -15,8 +15,8 @@ BuildRequires:	flex
 BuildRequires:	libselinux-devel >= 2.0.0
 BuildRequires:	libsepol-devel >= 2.0.37
 BuildRequires:	python-devel
-BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	ustr-devel
 Requires:	libselinux >= 2.0.0
 Requires:	libsepol >= 2.0.37
@@ -105,6 +105,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libsemanage.so
+%{_pkgconfigdir}/libsemanage.pc
 %{_includedir}/semanage
 %{_mandir}/man3/semanage_*.3*
 
