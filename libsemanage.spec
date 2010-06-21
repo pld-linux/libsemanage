@@ -1,13 +1,13 @@
 Summary:	An interface for SELinux management
 Summary(pl.UTF-8):	Interfejs do zarządzania SELinuksem
 Name:		libsemanage
-Version:	2.0.43
+Version:	2.0.45
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 #git clone http://oss.tresys.com/git/selinux.git
-Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	37e9b72e33ff42ebbf935c8bd761be8a
+Source0:	http://userspace.selinuxproject.org/releases/current/devel/%{name}-%{version}.tar.gz
+# Source0-md5:	f3ca65a97e919894ffa3252c9849038a
 URL:		http://userspace.selinuxproject.org/trac/wiki
 BuildRequires:	bison
 BuildRequires:	bzip2-devel
