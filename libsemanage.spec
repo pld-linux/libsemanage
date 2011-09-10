@@ -1,25 +1,25 @@
 Summary:	An interface for SELinux management
 Summary(pl.UTF-8):	Interfejs do zarządzania SELinuksem
 Name:		libsemanage
-Version:	2.0.45
-Release:	3
+Version:	2.1.0
+Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 #git clone http://oss.tresys.com/git/selinux.git
-Source0:	http://userspace.selinuxproject.org/releases/current/devel/%{name}-%{version}.tar.gz
-# Source0-md5:	f3ca65a97e919894ffa3252c9849038a
+Source0:	http://userspace.selinuxproject.org/releases/20110727/devel/%{name}-%{version}.tar.gz
+# Source0-md5:	d97b0700138dfcc0a9db55a26adffc70
 URL:		http://userspace.selinuxproject.org/trac/wiki
 BuildRequires:	bison
 BuildRequires:	bzip2-devel
 BuildRequires:	flex
-BuildRequires:	libselinux-devel >= 2.0.0
-BuildRequires:	libsepol-devel >= 2.0.37
+BuildRequires:	libselinux-devel >= 2.1.0
+BuildRequires:	libsepol-devel >= 2.1.0
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	ustr-devel
-Requires:	libselinux >= 2.0.0
-Requires:	libsepol >= 2.0.37
+Requires:	libselinux >= 2.1.0
+Requires:	libsepol >= 2.1.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -71,7 +71,7 @@ Wiązania Pythona do biblioteki semanage.
 %build
 %{__make} -j1 all pywrap \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags} -Wall -fno-strict-aliasing"
+	CFLAGS="%{rpmcflags} %{rpmcppflags} -Wall -fno-strict-aliasing"
 
 %install
 rm -rf $RPM_BUILD_ROOT
