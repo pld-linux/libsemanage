@@ -101,6 +101,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) /%{_lib}/libsemanage.so.*
 %dir %{_sysconfdir}/selinux
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/selinux/semanage.conf
+%{_mandir}/man5/semanage.conf.5*
 
 %files devel
 %defattr(644,root,root,755)
