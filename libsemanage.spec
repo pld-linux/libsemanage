@@ -2,7 +2,7 @@ Summary:	An interface for SELinux management
 Summary(pl.UTF-8):	Interfejs do zarządzania SELinuksem
 Name:		libsemanage
 Version:	2.3
-Release:	1
+Release:	2
 License:	LGPL v2.1+
 Group:		Libraries
 #git clone http://oss.tresys.com/git/selinux.git
