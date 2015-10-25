@@ -1,25 +1,26 @@
 Summary:	An interface for SELinux management
 Summary(pl.UTF-8):	Interfejs do zarządzania SELinuksem
 Name:		libsemanage
-Version:	2.3
-Release:	2
+Version:	2.4
+Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-#git clone http://oss.tresys.com/git/selinux.git
-Source0:	http://userspace.selinuxproject.org/releases/current/%{name}-%{version}.tar.gz
-# Source0-md5:	e564e2b92d18db35707060da29cddab9
-URL:		http://userspace.selinuxproject.org/trac/wiki
+#Source0Download: https://github.com/SELinuxProject/selinux/wiki/Releases
+Source0:	https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20150202/%{name}-%{version}.tar.gz
+# Source0-md5:	cd551eb1cc5d20652660bda037972f0d
+Patch0:		%{name}-libexecdir.patch
+URL:		https://github.com/SELinuxProject/selinux/wiki
 BuildRequires:	bison
 BuildRequires:	bzip2-devel
 BuildRequires:	flex
-BuildRequires:	libselinux-devel >= 2.3
-BuildRequires:	libsepol-devel >= 2.3
+BuildRequires:	libselinux-devel >= 2.4
+BuildRequires:	libsepol-devel >= 2.4
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	ustr-devel
-Requires:	libselinux >= 2.3
-Requires:	libsepol >= 2.3
+Requires:	libselinux >= 2.4
+Requires:	libsepol >= 2.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -57,6 +58,7 @@ Summary:	Python binding for semanage library
 Summary(pl.UTF-8):	Wiązania Pythona do biblioteki semanage
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
+Requires:	python-selinux >= 2.4
 %pyrequires_eq	python-libs
 
 %description -n python-semanage
@@ -67,21 +69,27 @@ Wiązania Pythona do biblioteki semanage.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__make} -j1 all pywrap \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags} %{rpmcppflags} -Wall -fno-strict-aliasing"
+	CFLAGS="%{rpmcflags} %{rpmcppflags} -Wall -fno-strict-aliasing" \
+	LIBEXECDIR=%{_libdir}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install install-pywrap \
 	LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
+	LIBEXECDIR=$RPM_BUILD_ROOT%{_libdir} \
 	SHLIBDIR=$RPM_BUILD_ROOT/%{_lib} \
 	DESTDIR=$RPM_BUILD_ROOT
 
-# make symlink across / absolute
+# changed in 2.4
+install -d $RPM_BUILD_ROOT/%{_lib}
+%{__mv} $RPM_BUILD_ROOT%{_libdir}/libsemanage.so.* $RPM_BUILD_ROOT/%{_lib}
+# adjust .so symlink, make symlink across / absolute
 ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libsemanage.so.*) \
 	$RPM_BUILD_ROOT%{_libdir}/libsemanage.so
 
@@ -101,6 +109,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) /%{_lib}/libsemanage.so.*
 %dir %{_sysconfdir}/selinux
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/selinux/semanage.conf
+%dir %{_libdir}/selinux
 %{_mandir}/man5/semanage.conf.5*
 
 %files devel
@@ -118,3 +127,4 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_sitedir}/_semanage.so
 %{py_sitedir}/semanage.py[co]
+%attr(755,root,root) %{_libdir}/selinux/semanage_migrate_store

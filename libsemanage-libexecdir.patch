@@ -1,0 +1,30 @@
+--- libsemanage-2.4/src/conf-parse.y.orig	2015-02-02 15:38:10.000000000 +0100
++++ libsemanage-2.4/src/conf-parse.y	2015-10-25 16:33:24.439519078 +0100
+@@ -320,7 +320,7 @@
+ 	conf->store_path = strdup(basename(selinux_policy_root()));
+ 	conf->ignoredirs = NULL;
+ 	conf->store_root_path = strdup("/var/lib/selinux");
+-	conf->compiler_directory_path = strdup("/usr/libexec/selinux/hll");
++	conf->compiler_directory_path = strdup(LIBEXECDIR "/selinux/hll");
+ 	conf->policyvers = sepol_policy_kern_vers_max();
+ 	conf->target_platform = SEPOL_TARGET_SELINUX;
+ 	conf->expand_check = 1;
+--- libsemanage-2.4/src/Makefile.orig	2015-02-02 15:38:10.000000000 +0100
++++ libsemanage-2.4/src/Makefile	2015-10-25 16:33:33.496185556 +0100
+@@ -9,6 +9,7 @@
+ # Installation directories.
+ PREFIX ?= $(DESTDIR)/usr
+ LIBDIR ?= $(PREFIX)/lib
++LIBEXECDIR ?= $(PREFIX)/libexec
+ SHLIBDIR ?= $(DESTDIR)/lib
+ INCLUDEDIR ?= $(PREFIX)/include
+ PYLIBVER ?= $(shell $(PYTHON) -c 'import sys;print("python%d.%d" % sys.version_info[0:2])')
+@@ -60,7 +61,7 @@
+ SWIG_CFLAGS += -Wno-error -Wno-unused-but-set-variable -Wno-unused-variable -Wno-shadow \
+ 		-Wno-unused-parameter
+ 
+-override CFLAGS += -I../include -I$(INCLUDEDIR) -D_GNU_SOURCE 
++override CFLAGS += -I../include -I$(INCLUDEDIR) -D_GNU_SOURCE -DLIBEXECDIR=\"$(LIBEXECDIR)\"
+ RANLIB=ranlib
+ 
+ SWIG = swig -Wall -python -o $(SWIGCOUT) -outdir ./
