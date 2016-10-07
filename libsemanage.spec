@@ -1,26 +1,26 @@
 Summary:	An interface for SELinux management
 Summary(pl.UTF-8):	Interfejs do zarządzania SELinuksem
 Name:		libsemanage
-Version:	2.4
-Release:	2
+Version:	2.5
+Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 #Source0Download: https://github.com/SELinuxProject/selinux/wiki/Releases
-Source0:	https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20150202/%{name}-%{version}.tar.gz
-# Source0-md5:	cd551eb1cc5d20652660bda037972f0d
+Source0:	https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20160223/%{name}-%{version}.tar.gz
+# Source0-md5:	eb030c863de1a6b3e2614a5c043c1641
 Patch0:		%{name}-libexecdir.patch
 URL:		https://github.com/SELinuxProject/selinux/wiki
 BuildRequires:	bison
 BuildRequires:	bzip2-devel
 BuildRequires:	flex
-BuildRequires:	libselinux-devel >= 2.4
-BuildRequires:	libsepol-devel >= 2.4
+BuildRequires:	libselinux-devel >= 2.5
+BuildRequires:	libsepol-devel >= 2.5
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 BuildRequires:	ustr-devel
-Requires:	libselinux >= 2.4
-Requires:	libsepol >= 2.4
+Requires:	libselinux >= 2.5
+Requires:	libsepol >= 2.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -58,7 +58,7 @@ Summary:	Python binding for semanage library
 Summary(pl.UTF-8):	Wiązania Pythona do biblioteki semanage
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
-Requires:	python-selinux >= 2.4
+Requires:	python-selinux >= 2.5
 %pyrequires_eq	python-libs
 
 %description -n python-semanage
