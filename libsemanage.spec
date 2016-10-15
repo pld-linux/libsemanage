@@ -1,3 +1,13 @@
+#
+# Conditional build:
+%bcond_without	python	# Python (any) bindings
+%bcond_without	python2	# Python 2 binding
+%bcond_without	python3	# Python 3 binding
+#
+%if %{without python}
+%undefine	with_python2
+%undefine	with_python3
+%endif
 Summary:	An interface for SELinux management
 Summary(pl.UTF-8):	Interfejs do zarządzania SELinuksem
 Name:		libsemanage
@@ -15,9 +25,10 @@ BuildRequires:	bzip2-devel
 BuildRequires:	flex
 BuildRequires:	libselinux-devel >= 2.5
 BuildRequires:	libsepol-devel >= 2.5
-BuildRequires:	python-devel
+%{?with_python2:BuildRequires:	python-devel >= 2}
+%{?with_python3:BuildRequires:	python3-devel >= 1:3.2}
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.219
+BuildRequires:	rpmbuild(macros) >= 1.714
 BuildRequires:	ustr-devel
 Requires:	libselinux >= 2.5
 Requires:	libsepol >= 2.5
@@ -54,36 +65,63 @@ Static version of libsemanage library.
 Statyczna wersja biblioteki libsemanage.
 
 %package -n python-semanage
-Summary:	Python binding for semanage library
-Summary(pl.UTF-8):	Wiązania Pythona do biblioteki semanage
+Summary:	Python 2 binding for semanage library
+Summary(pl.UTF-8):	Wiązania Pythona 2 do biblioteki semanage
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
 Requires:	python-selinux >= 2.5
-%pyrequires_eq	python-libs
 
 %description -n python-semanage
-Python binding for semanage library.
+Python 2 binding for semanage library.
 
 %description -n python-semanage -l pl.UTF-8
-Wiązania Pythona do biblioteki semanage.
+Wiązania Pythona 2 do biblioteki semanage.
+
+%package -n python3-semanage
+Summary:	Python 3 binding for semanage library
+Summary(pl.UTF-8):	Wiązania Pythona 3 do biblioteki semanage
+Group:		Libraries/Python
+Requires:	%{name} = %{version}-%{release}
+Requires:	python3-selinux >= 2.5
+
+%description -n python3-semanage
+Python 3 binding for semanage library.
+
+%description -n python3-semanage -l pl.UTF-8
+Wiązania Pythona 3 do biblioteki semanage.
 
 %prep
 %setup -q
 %patch0 -p1
 
 %build
-%{__make} -j1 all pywrap \
+%{__make} -j1 all %{?with_python2:pywrap} \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} %{rpmcppflags} -Wall -fno-strict-aliasing" \
-	LIBEXECDIR=%{_libdir}
+	LIBDIR=%{_libdir} \
+	LIBEXECDIR=%{_libdir} \
+	PYPREFIX=python2 \
+	PYTHON=%{__python}
+
+%if %{with python3}
+%{__make} -j1 -C src pywrap \
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags} %{rpmcppflags} -Wall -fno-strict-aliasing" \
+	LIBDIR=%{_libdir} \
+	LIBEXECDIR=%{_libdir} \
+	PYPREFIX=python3 \
+	PYTHON=%{__python3}
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install install-pywrap \
+%{__make} install %{?with_python2:install-pywrap} \
 	LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
 	LIBEXECDIR=$RPM_BUILD_ROOT%{_libdir} \
 	SHLIBDIR=$RPM_BUILD_ROOT/%{_lib} \
+	PYPREFIX=python2 \
+	PYTHON=%{__python} \
 	DESTDIR=$RPM_BUILD_ROOT
 
 # changed in 2.4
@@ -93,9 +131,23 @@ install -d $RPM_BUILD_ROOT/%{_lib}
 ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libsemanage.so.*) \
 	$RPM_BUILD_ROOT%{_libdir}/libsemanage.so
 
+%if %{with python2}
 %py_comp $RPM_BUILD_ROOT%{py_sitedir}
 %py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
 %py_postclean
+%endif
+
+%if %{with python3}
+%{__make} -C src install-pywrap \
+	LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
+	LIBEXECDIR=$RPM_BUILD_ROOT%{_libdir} \
+	PYPREFIX=python3 \
+	PYTHON=%{__python3} \
+	DESTDIR=$RPM_BUILD_ROOT
+
+%py3_comp $RPM_BUILD_ROOT%{py3_sitedir}
+%py3_ocomp $RPM_BUILD_ROOT%{py3_sitedir}
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -123,8 +175,18 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libsemanage.a
 
+%if %{with python2}
 %files -n python-semanage
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_sitedir}/_semanage.so
 %{py_sitedir}/semanage.py[co]
 %attr(755,root,root) %{_libdir}/selinux/semanage_migrate_store
+%endif
+
+%if %{with python3}
+%files -n python3-semanage
+%defattr(644,root,root,755)
+%attr(755,root,root) %{py3_sitedir}/_semanage.so
+%{py3_sitedir}/semanage.py
+%{py3_sitedir}/__pycache__/semanage.cpython-*.py[co]
+%endif
