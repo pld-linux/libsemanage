@@ -25,6 +25,6 @@
  
 -override CFLAGS += -I../include -I$(INCLUDEDIR) -D_GNU_SOURCE 
 +override CFLAGS += -I../include -I$(INCLUDEDIR) -D_GNU_SOURCE -DLIBEXECDIR=\"$(LIBEXECDIR)\"
- RANLIB=ranlib
+ RANLIB ?= ranlib
  
  SWIG = swig -Wall -python -o $(SWIGCOUT) -outdir ./
