@@ -12,7 +12,7 @@ Summary:	An interface for SELinux management
 Summary(pl.UTF-8):	Interfejs do zarządzania SELinuksem
 Name:		libsemanage
 Version:	2.7
-Release:	1
+Release:	2
 License:	LGPL v2.1+
 Group:		Libraries
 #Source0Download: https://github.com/SELinuxProject/selinux/wiki/Releases
@@ -117,7 +117,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install %{?with_python2:install-pywrap} \
 	LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
-	LIBEXECDIR=$RPM_BUILD_ROOT%{_libdir} \
+	LIBEXECDIR=$RPM_BUILD_ROOT%{_libexecdir} \
 	SHLIBDIR=$RPM_BUILD_ROOT/%{_lib} \
 	PYPREFIX=python2 \
 	PYSITEDIR=$RPM_BUILD_ROOT%{py_sitedir} \
@@ -140,7 +140,7 @@ ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libsemanage.so.*) \
 %if %{with python3}
 %{__make} -C src install-pywrap \
 	LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
-	LIBEXECDIR=$RPM_BUILD_ROOT%{_libdir} \
+	LIBEXECDIR=$RPM_BUILD_ROOT%{_libexecdir} \
 	PYPREFIX=python3 \
 	PYSITEDIR=$RPM_BUILD_ROOT%{py3_sitedir} \
 	PYTHON=%{__python3} \
@@ -161,7 +161,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) /%{_lib}/libsemanage.so.1
 %dir %{_sysconfdir}/selinux
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/selinux/semanage.conf
-%dir %{_libdir}/selinux
+%dir %{_libexecdir}/selinux
 %{_mandir}/man5/semanage.conf.5*
 
 %files devel
@@ -180,7 +180,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_sitedir}/_semanage.so
 %{py_sitedir}/semanage.py[co]
-%attr(755,root,root) %{_libdir}/selinux/semanage_migrate_store
+%attr(755,root,root) %{_libexecdir}/selinux/semanage_migrate_store
 %endif
 
 %if %{with python3}
