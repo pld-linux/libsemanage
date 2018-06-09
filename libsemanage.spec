@@ -11,26 +11,26 @@
 Summary:	An interface for SELinux management
 Summary(pl.UTF-8):	Interfejs do zarządzania SELinuksem
 Name:		libsemanage
-Version:	2.7
-Release:	2
+Version:	2.8
+Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 #Source0Download: https://github.com/SELinuxProject/selinux/wiki/Releases
-Source0:	https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20170804/%{name}-%{version}.tar.gz
-# Source0-md5:	a6b5c451fbe45ff9e3e0e65f2db0ae1d
+Source0:	https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20180524/%{name}-%{version}.tar.gz
+# Source0-md5:	62ed7bb2ede677a735f2750751677a4f
 Patch0:		%{name}-libexecdir.patch
 URL:		https://github.com/SELinuxProject/selinux/wiki
 BuildRequires:	bison
 BuildRequires:	bzip2-devel
 BuildRequires:	flex
-BuildRequires:	libselinux-devel >= 2.7
-BuildRequires:	libsepol-devel >= 2.7
+BuildRequires:	libselinux-devel >= 2.8
+BuildRequires:	libsepol-devel >= 2.8
 %{?with_python2:BuildRequires:	python-devel >= 2}
 %{?with_python3:BuildRequires:	python3-devel >= 1:3.2}
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
-Requires:	libselinux >= 2.7
-Requires:	libsepol >= 2.7
+Requires:	libselinux >= 2.8
+Requires:	libsepol >= 2.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -68,7 +68,7 @@ Summary:	Python 2 binding for semanage library
 Summary(pl.UTF-8):	Wiązania Pythona 2 do biblioteki semanage
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
-Requires:	python-selinux >= 2.7
+Requires:	python-selinux >= 2.8
 
 %description -n python-semanage
 Python 2 binding for semanage library.
@@ -81,7 +81,7 @@ Summary:	Python 3 binding for semanage library
 Summary(pl.UTF-8):	Wiązania Pythona 3 do biblioteki semanage
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
-Requires:	python3-selinux >= 2.7
+Requires:	python3-selinux >= 2.8
 
 %description -n python3-semanage
 Python 3 binding for semanage library.
@@ -98,7 +98,7 @@ Wiązania Pythona 3 do biblioteki semanage.
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} %{rpmcppflags} -Wall -fno-strict-aliasing" \
 	LIBDIR=%{_libdir} \
-	LIBEXECDIR=%{_libdir} \
+	LIBEXECDIR=%{_libexecdir} \
 	PYPREFIX=python2 \
 	PYTHON=%{__python}
 
@@ -107,7 +107,7 @@ Wiązania Pythona 3 do biblioteki semanage.
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} %{rpmcppflags} -Wall -fno-strict-aliasing" \
 	LIBDIR=%{_libdir} \
-	LIBEXECDIR=%{_libdir} \
+	LIBEXECDIR=%{_libexecdir} \
 	PYPREFIX=python3 \
 	PYTHON=%{__python3}
 %endif
@@ -116,11 +116,10 @@ Wiązania Pythona 3 do biblioteki semanage.
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install %{?with_python2:install-pywrap} \
-	LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
-	LIBEXECDIR=$RPM_BUILD_ROOT%{_libexecdir} \
-	SHLIBDIR=$RPM_BUILD_ROOT/%{_lib} \
+	LIBDIR=%{_libdir} \
+	LIBEXECDIR=%{_libexecdir} \
 	PYPREFIX=python2 \
-	PYSITEDIR=$RPM_BUILD_ROOT%{py_sitedir} \
+	PYSITEDIR=%{py_sitedir} \
 	PYTHON=%{__python} \
 	DESTDIR=$RPM_BUILD_ROOT
 
@@ -139,10 +138,10 @@ ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libsemanage.so.*) \
 
 %if %{with python3}
 %{__make} -C src install-pywrap \
-	LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
-	LIBEXECDIR=$RPM_BUILD_ROOT%{_libexecdir} \
+	LIBDIR=%{_libdir} \
+	LIBEXECDIR=%{_libexecdir} \
 	PYPREFIX=python3 \
-	PYSITEDIR=$RPM_BUILD_ROOT%{py3_sitedir} \
+	PYSITEDIR=%{py3_sitedir} \
 	PYTHON=%{__python3} \
 	DESTDIR=$RPM_BUILD_ROOT
 
