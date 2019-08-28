@@ -162,6 +162,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/selinux/semanage.conf
 %dir %{_libexecdir}/selinux
 %{_mandir}/man5/semanage.conf.5*
+%lang(ru) %{_mandir}/ru/man5/semanage.conf.5*
 
 %files devel
 %defattr(644,root,root,755)
