@@ -14,6 +14,7 @@ Source0:	https://github.com/SELinuxProject/selinux/releases/download/20200710/%{
 # Source0-md5:	d16eee8c1dc8cf43f59957d575d6bd29
 Patch0:		%{name}-libexecdir.patch
 URL:		https://github.com/SELinuxProject/selinux/wiki
+BuildRequires:	audit-libs-devel
 BuildRequires:	bison
 BuildRequires:	bzip2-devel
 BuildRequires:	flex
