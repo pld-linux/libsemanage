@@ -17,11 +17,11 @@
  LIBDIR ?= $(PREFIX)/lib
 +LIBEXECDIR ?= $(PREFIX)/libexec
  INCLUDEDIR ?= $(PREFIX)/include
+ SYSCONFDIR ?= /etc
  PYINC ?= $(shell $(PKG_CONFIG) --cflags $(PYPREFIX))
- PYLIBS ?= $(shell $(PKG_CONFIG) --libs $(PYPREFIX))
 @@ -58,7 +59,7 @@
  SWIG_CFLAGS += -Wno-error -Wno-unused-but-set-variable -Wno-unused-variable -Wno-shadow \
- 		-Wno-unused-parameter
+ 		-Wno-unused-parameter -Wno-missing-prototypes
  
 -override CFLAGS += -I../include -D_GNU_SOURCE
 +override CFLAGS += -I../include -D_GNU_SOURCE -DLIBEXECDIR=\"$(LIBEXECDIR)\"

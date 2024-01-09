@@ -5,26 +5,26 @@
 Summary:	An interface for SELinux management
 Summary(pl.UTF-8):	Interfejs do zarządzania SELinuksem
 Name:		libsemanage
-Version:	3.1
-Release:	2
+Version:	3.6
+Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 #Source0Download: https://github.com/SELinuxProject/selinux/wiki/Releases
-Source0:	https://github.com/SELinuxProject/selinux/releases/download/20200710/%{name}-%{version}.tar.gz
-# Source0-md5:	d16eee8c1dc8cf43f59957d575d6bd29
+Source0:	https://github.com/SELinuxProject/selinux/releases/download/%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	34b2c8210b714377360ebeca0c1f31cb
 Patch0:		%{name}-libexecdir.patch
 URL:		https://github.com/SELinuxProject/selinux/wiki
 BuildRequires:	audit-libs-devel
 BuildRequires:	bison
 BuildRequires:	bzip2-devel
 BuildRequires:	flex
-BuildRequires:	libselinux-devel >= 3.1
-BuildRequires:	libsepol-devel >= 3.1
+BuildRequires:	libselinux-devel >= 3.6
+BuildRequires:	libsepol-devel >= 3.6
 %{?with_python:BuildRequires:	python3-devel >= 1:3.2}
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
-Requires:	libselinux >= 3.1
-Requires:	libsepol >= 3.1
+Requires:	libselinux >= 3.6
+Requires:	libsepol >= 3.6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -62,7 +62,7 @@ Summary:	Python 3 binding for semanage library
 Summary(pl.UTF-8):	Wiązania Pythona 3 do biblioteki semanage
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
-Requires:	python3-selinux >= 3.1
+Requires:	python3-selinux >= 3.6
 
 %description -n python3-semanage
 Python 3 binding for semanage library.
@@ -114,12 +114,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) /%{_lib}/libsemanage.so.1
+%attr(755,root,root) /%{_lib}/libsemanage.so.2
 %dir %{_sysconfdir}/selinux
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/selinux/semanage.conf
 %dir %{_libexecdir}/selinux
 %{_mandir}/man5/semanage.conf.5*
-%lang(ru) %{_mandir}/ru/man5/semanage.conf.5*
 
 %files devel
 %defattr(644,root,root,755)
