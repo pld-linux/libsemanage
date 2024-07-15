@@ -5,26 +5,26 @@
 Summary:	An interface for SELinux management
 Summary(pl.UTF-8):	Interfejs do zarządzania SELinuksem
 Name:		libsemanage
-Version:	3.6
+Version:	3.7
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 #Source0Download: https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0:	https://github.com/SELinuxProject/selinux/releases/download/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	34b2c8210b714377360ebeca0c1f31cb
+# Source0-md5:	64e6b5cf945b9e45077b8051e7b88f93
 Patch0:		%{name}-libexecdir.patch
 URL:		https://github.com/SELinuxProject/selinux/wiki
 BuildRequires:	audit-libs-devel
 BuildRequires:	bison
 BuildRequires:	bzip2-devel
 BuildRequires:	flex
-BuildRequires:	libselinux-devel >= 3.6
-BuildRequires:	libsepol-devel >= 3.6
+BuildRequires:	libselinux-devel >= 3.7
+BuildRequires:	libsepol-devel >= 3.7
 %{?with_python:BuildRequires:	python3-devel >= 1:3.2}
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
-Requires:	libselinux >= 3.6
-Requires:	libsepol >= 3.6
+Requires:	libselinux >= 3.7
+Requires:	libsepol >= 3.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -62,7 +62,7 @@ Summary:	Python 3 binding for semanage library
 Summary(pl.UTF-8):	Wiązania Pythona 3 do biblioteki semanage
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
-Requires:	python3-selinux >= 3.6
+Requires:	python3-selinux >= 3.7
 
 %description -n python3-semanage
 Python 3 binding for semanage library.
