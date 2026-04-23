@@ -1,7 +1,7 @@
---- libsemanage-2.4/src/conf-parse.y.orig	2015-02-02 15:38:10.000000000 +0100
-+++ libsemanage-2.4/src/conf-parse.y	2015-10-25 16:33:24.439519078 +0100
-@@ -320,7 +320,7 @@
- 	conf->store_path = strdup(basename(selinux_policy_root()));
+--- libsemanage-3.10/src/conf-parse.y.orig	2026-02-02 03:01:16.000000000 +0100
++++ libsemanage-3.10/src/conf-parse.y	2026-04-23 21:21:09.023119399 +0200
+@@ -401,7 +401,7 @@ static int semanage_conf_init(semanage_c
+ 	}
  	conf->ignoredirs = NULL;
  	conf->store_root_path = strdup("/var/lib/selinux");
 -	conf->compiler_directory_path = strdup("/usr/libexec/selinux/hll");
@@ -9,9 +9,9 @@
  	conf->policyvers = sepol_policy_kern_vers_max();
  	conf->target_platform = SEPOL_TARGET_SELINUX;
  	conf->expand_check = 1;
---- libsemanage-2.8/src/Makefile.orig	2018-05-24 20:21:09.000000000 +0200
-+++ libsemanage-2.8/src/Makefile	2018-06-09 08:48:09.813027697 +0200
-@@ -10,6 +10,7 @@
+--- libsemanage-3.10/src/Makefile.orig	2026-02-02 03:01:16.000000000 +0100
++++ libsemanage-3.10/src/Makefile	2026-04-23 21:22:06.306142404 +0200
+@@ -10,6 +10,7 @@ PKG_CONFIG ?= pkg-config
  # Installation directories.
  PREFIX ?= /usr
  LIBDIR ?= $(PREFIX)/lib
@@ -19,11 +19,11 @@
  INCLUDEDIR ?= $(PREFIX)/include
  SYSCONFDIR ?= /etc
  PYINC ?= $(shell $(PKG_CONFIG) --cflags $(PYPREFIX))
-@@ -58,7 +59,7 @@
+@@ -60,7 +61,7 @@ CFLAGS ?= -Werror -Wall -W -Wundef -Wsha
  SWIG_CFLAGS += -Wno-error -Wno-unused-but-set-variable -Wno-unused-variable -Wno-shadow \
- 		-Wno-unused-parameter -Wno-missing-prototypes
+ 		-Wno-unused-parameter -Wno-missing-prototypes -Wno-missing-field-initializers
  
--override CFLAGS += -I../include -D_GNU_SOURCE
+-override CFLAGS += -I../include -I../../libselinux/include -D_GNU_SOURCE
 +override CFLAGS += -I../include -D_GNU_SOURCE -DLIBEXECDIR=\"$(LIBEXECDIR)\"
  RANLIB ?= ranlib
  

@@ -2,17 +2,17 @@
 # Conditional build:
 %bcond_without	python	# Python 3 bindings
 #
-%define	selinux_ver	3.8
+%define	selinux_ver	3.10
 Summary:	An interface for SELinux management
 Summary(pl.UTF-8):	Interfejs do zarządzania SELinuksem
 Name:		libsemanage
-Version:	3.8.1
+Version:	3.10
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 #Source0Download: https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0:	https://github.com/SELinuxProject/selinux/releases/download/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	252486b4790b01bab459a30126027555
+# Source0-md5:	fc210165ede52547ebf3d9dfa0d66f50
 Patch0:		%{name}-libexecdir.patch
 URL:		https://github.com/SELinuxProject/selinux/wiki
 BuildRequires:	audit-libs-devel
@@ -115,7 +115,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) /%{_lib}/libsemanage.so.2
+/%{_lib}/libsemanage.so.2
 %dir %{_sysconfdir}/selinux
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/selinux/semanage.conf
 %dir %{_libexecdir}/selinux
@@ -123,7 +123,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libsemanage.so
+%{_libdir}/libsemanage.so
 %{_pkgconfigdir}/libsemanage.pc
 %{_includedir}/semanage
 %{_mandir}/man3/semanage_*.3*
@@ -135,7 +135,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python}
 %files -n python3-semanage
 %defattr(644,root,root,755)
-%attr(755,root,root) %{py3_sitedir}/_semanage.cpython-*.so
+%{py3_sitedir}/_semanage.cpython-*.so
 %{py3_sitedir}/semanage.py
 %{py3_sitedir}/__pycache__/semanage.cpython-*.py[co]
 %attr(755,root,root) %{_libexecdir}/selinux/semanage_migrate_store
